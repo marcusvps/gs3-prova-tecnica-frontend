@@ -12,6 +12,7 @@ import { NovoComponent } from './components/cliente/novo/novo.component';
 import { VisualizarComponent } from './components/cliente/visualizar/visualizar.component';
 import {NgxMaskModule} from 'ngx-mask';
 import { AlterarComponent } from './components/cliente/alterar/alterar.component';
+import {ListHistoricoComponent} from './components/historico/list/list-historico.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AlterarComponent } from './components/cliente/alterar/alterar.component
     ListComponent,
     NovoComponent,
     VisualizarComponent,
-    AlterarComponent
+    AlterarComponent,
+    ListHistoricoComponent
   ],
     imports: [
 

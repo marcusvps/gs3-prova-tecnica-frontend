@@ -1,0 +1,17 @@
+<div *ngIf="historicos.length > 0">
+  <h1 >Historico de Operações</h1>
+  <table border="1" >
+    <tr>
+      <th>Data Operação</th>
+      <th>Descrição</th>
+      <th>Tipo de Operação</th>
+    </tr>
+    <tr *ngFor="let historico of historicos">
+      <td>{{historico.dataOperacao | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+      <td>{{historico.descricao }}</td>
+      <td>{{historico.tipoOperacao }}</td>
+
+    </tr>
+  </table>
+</div>
+
