@@ -1,0 +1,33 @@
+<div class="main">
+  <h1>Clientes</h1>
+
+  <div *ngIf="isUserAdmin() && clientes.length == 0" class="centerElements">
+    <h2>Ainda não há nenhum cadastro, utilize o botão abaixo e crie nosso primeiro cliente. </h2>
+    <button *ngIf="isUserAdmin()" (click)="novoCliente()">Novo Cliente</button>
+  </div>
+
+  <div *ngIf="!isUserAdmin() && clientes.length == 0" class="centerElements">
+    <h2>Ainda não há nenhum cadastro, aguarde um administrador realizar o cadastro. </h2>
+  </div>
+
+  <table border="1" *ngIf="clientes.length > 0">
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>CPF</th>
+      <th>Ações</th>
+    </tr>
+    <tr *ngFor="let cliente of clientes">
+      <td>{{cliente.id}}</td>
+      <td>{{cliente.nome}}</td>
+      <td>{{cliente.cpf | mask:cpfMask}}</td>
+      <td>
+        <button (click)="visualizarCliente(cliente)">Visualizar</button>
+        <button (click)="alterarCliente(cliente)" *ngIf="isUserAdmin()">Alterar</button>
+        <button (click)="removerCliente(cliente)" *ngIf="isUserAdmin()" >Remover</button>
+      </td>
+
+    </tr>
+  </table>
+
+</div>

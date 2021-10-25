@@ -1,0 +1,8 @@
+<div class="main">
+  <form class="formLogin">
+    <h1>Autenticação</h1>
+    <input type="text" class="form-control" name="login" placeholder="Login" [(ngModel)]="login"/>
+    <input type="password" class="form-control" name="senha" placeholder="Senha" [(ngModel)]="password"/>
+    <button type="submit" (click)="autenticar()">Acessar</button>
+  </form>
+</div>
