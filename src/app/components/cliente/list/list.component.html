@@ -1,35 +1,45 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<app-header-navbar></app-header-navbar>
 <div class="main">
   <h1>Clientes</h1>
-
+  <button *ngIf="isUserAdmin()" class="btn btn-primary" (click)="novoCliente()">Novo Cliente</button>
   <div *ngIf="isUserAdmin() && clientes.length == 0" class="centerElements">
-    <h2>Ainda não há nenhum cadastro, utilize o botão abaixo e crie nosso primeiro cliente. </h2>
-    <button *ngIf="isUserAdmin()" (click)="novoCliente()">Novo Cliente</button>
+    <h2>Nenhum cliente por aqui! <br/></h2>
+    <img src="assets/empty_state.jpg" class="emptyState"/>
   </div>
+
 
   <div *ngIf="!isUserAdmin() && clientes.length == 0" class="centerElements">
     <h2>Ainda não há nenhum cadastro, aguarde um administrador realizar o cadastro. </h2>
   </div>
 
-  <table border="1" *ngIf="clientes.length > 0">
+  <table class="table table-striped table-hover" *ngIf="clientes.length > 0">
+    <thead>
     <tr>
       <th>ID</th>
       <th>Nome</th>
       <th>CPF</th>
       <th>Ações</th>
     </tr>
+    </thead>
+    <tbody>
     <tr *ngFor="let cliente of clientes">
       <td>{{cliente.id}}</td>
       <td>{{cliente.nome}}</td>
       <td>{{cliente.cpf | mask:cpfMask}}</td>
       <td>
-        <button (click)="visualizarCliente(cliente)">Visualizar</button>
-        <button (click)="alterarCliente(cliente)" *ngIf="isUserAdmin()">Alterar</button>
-        <button (click)="removerCliente(cliente)" *ngIf="isUserAdmin()" >Remover</button>
+        <button class="btn" (click)="visualizarCliente(cliente)" title="Visualizar"><i class="fa fa-eye"></i></button>
+        <button class="btn" (click)="alterarCliente(cliente)" *ngIf="isUserAdmin()" title="Alterar"><i
+          class="fa fa-pencil"></i></button>
+        <button class="btn" (click)="confirmarRemocao(cliente)" *ngIf="isUserAdmin()" title="Remover"><i
+          class="fa fa-trash"></i></button>
       </td>
 
     </tr>
+    </tbody>
   </table>
 
-  <app-list-historico *ngIf="isUserAdmin()"></app-list-historico>
-
 </div>
+

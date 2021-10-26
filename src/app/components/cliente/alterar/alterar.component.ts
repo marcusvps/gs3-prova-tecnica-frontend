@@ -13,7 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./alterar.component.css']
 })
 export class AlterarComponent implements OnInit {
-
+  erros:any = [];
   clienteAAlterar:Cliente;
 
   cpfMask = "000.000.000-00";
@@ -56,7 +56,8 @@ export class AlterarComponent implements OnInit {
           this.clienteAAlterar.endereco.logradouro = data['logradouro'];
           this.clienteAAlterar.endereco.complemento = data['complemento'];
         }, error => {
-          alert("Erro: " + error.error.erro)
+          this.erros = [];
+          this.erros.push(error.error.erro);
         })
     }
   }
@@ -74,10 +75,11 @@ export class AlterarComponent implements OnInit {
           this.router.navigateByUrl('/list');
         },
         error => {
+          this.erros = [];
           if(error.error.erros){
-            alert("Erro: " + error.error.erros);
+            this.erros = error.error.erros;
           }else{
-            alert("Erro: " + error.error.erro);
+            this.erros.push(error.error.erro);
           }
 
         })

@@ -1,8 +1,13 @@
 .form{
   display: flex;
   flex-direction: column;
+  width: 50%;
 }
 
 label{
+  margin-top: 10px;
+}
+
+button{
   margin-top: 10px;
 }

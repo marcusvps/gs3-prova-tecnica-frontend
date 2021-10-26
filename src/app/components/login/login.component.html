@@ -1,8 +1,23 @@
 <div class="main">
   <form class="formLogin">
+
     <h1>Autenticação</h1>
-    <input type="text" class="form-control" name="login" placeholder="Login" [(ngModel)]="login"/>
-    <input type="password" class="form-control" name="senha" placeholder="Senha" [(ngModel)]="password"/>
-    <button type="submit" (click)="autenticar()">Acessar</button>
+    <div class="mb-3">
+      <label for="login" class="form-label">Login</label>
+      <input type="text" class="form-control" id="login" name="login" placeholder="Login" [(ngModel)]="login"/>
+
+    </div>
+    <div class="mb-3">
+      <label for="senha" class="form-label">Senha</label>
+      <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" [(ngModel)]="password"/>
+    </div>
+
+    <button type="submit" class="btn btn-success" (click)="autenticar()">Acessar</button>
+
+    <app-error [erros]="erros"></app-error>
   </form>
+
+
 </div>
+
+

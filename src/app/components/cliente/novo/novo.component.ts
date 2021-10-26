@@ -13,8 +13,8 @@ import {Endereco} from '../../../model/Endereco';
   styleUrls: ['./novo.component.css']
 })
 export class NovoComponent implements OnInit {
-
-  novoCliente:Cliente;
+  erros:any = [];
+  cliente:Cliente;
 
   cpfMask = "000.000.000-00";
   cepMask = "00000-000"
@@ -24,37 +24,39 @@ export class NovoComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.novoCliente = new Cliente();
-    this.novoCliente.endereco = new Endereco();
+    this.cliente = new Cliente();
+    this.cliente.endereco = new Endereco();
     this.adicionarInputTelefone();
     this.adicionarInputEmail();
   }
 
   adicionarInputTelefone(){
-    if(!this.novoCliente.telefones) this.novoCliente.telefones = [];
+    if(!this.cliente.telefones) this.cliente.telefones = [];
     let novoTelefone = new Telefone();
-    this.novoCliente.telefones.push(novoTelefone)
+    novoTelefone.tipoTelefone = "RESIDENCIAL";
+    this.cliente.telefones.push(novoTelefone)
   }
 
   adicionarInputEmail(){
-    if(!this.novoCliente.emails) this.novoCliente.emails = [];
+    if(!this.cliente.emails) this.cliente.emails = [];
     let novoEmail = new Email();
-    this.novoCliente.emails.push(novoEmail)
+    this.cliente.emails.push(novoEmail)
   }
   buscarEnderecoPeloCEP() {
     let usuario = this.localStorage.get("usuario");
-    if(this.novoCliente.endereco.cep){
-    this.httpClient.get("http://localhost:8080/api/endereco/" + this.novoCliente.endereco.cep,{params:{
+    if(this.cliente.endereco.cep){
+    this.httpClient.get("http://localhost:8080/api/endereco/" + this.cliente.endereco.cep,{params:{
         idUsuarioLogado: usuario.id
       }})
       .subscribe( (data) =>{
-        this.novoCliente.endereco.cidade = data['cidade'];
-        this.novoCliente.endereco.uf = data['uf'];
-        this.novoCliente.endereco.bairro = data['bairro'];
-        this.novoCliente.endereco.logradouro = data['logradouro'];
-        this.novoCliente.endereco.complemento = data['complemento'];
+        this.cliente.endereco.cidade = data['cidade'];
+        this.cliente.endereco.uf = data['uf'];
+        this.cliente.endereco.bairro = data['bairro'];
+        this.cliente.endereco.logradouro = data['logradouro'];
+        this.cliente.endereco.complemento = data['complemento'];
       }, error => {
-        alert("Erro: " + error.error.erro)
+        this.erros = [];
+        this.erros.push(error.error.erro);
       })
     }
   }
@@ -69,15 +71,16 @@ export class NovoComponent implements OnInit {
   salvar(){
     let usuario = this.localStorage.get("usuario");
 
-    this.httpClient.post("http://localhost:8080/api/cliente/salvar",this.novoCliente)
+    this.httpClient.post("http://localhost:8080/api/cliente/salvar",this.cliente)
       .subscribe(() =>{
         this.router.navigateByUrl('/list');
       },
         error => {
+          this.erros = [];
         if(error.error.erros){
-          alert("Erro: " + error.error.erros);
+          this.erros = error.error.erros;
         }else{
-          alert("Erro: " + error.error.erro);
+          this.erros.push(error.error.erro);
         }
 
         })

@@ -11,6 +11,7 @@ import {LocalStorageService} from '../../service/local-storage.service';
 export class LoginComponent implements OnInit {
   login: any;
   password: any;
+  erros:any = [];
 
   constructor(private httpClient: HttpClient,
               private router: Router,
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
         }
         },
         error => {
-          alert("Erro: " + error.error.erro)
+          this.erros = [];
+          this.erros.push(error.error.erro);
         });
   }
 }

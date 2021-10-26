@@ -13,6 +13,13 @@ import { VisualizarComponent } from './components/cliente/visualizar/visualizar.
 import {NgxMaskModule} from 'ngx-mask';
 import { AlterarComponent } from './components/cliente/alterar/alterar.component';
 import {ListHistoricoComponent} from './components/historico/list/list-historico.component';
+import {CommonModule} from '@angular/common';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {TooltipModule} from 'ngx-bootstrap/tooltip';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import { ErrorComponent } from './components/error/error.component';
+import { HeaderNavbarComponent } from './components/header-navbar/header-navbar.component';
+import {ModalDialogModule} from 'ngx-modal-dialog';
 
 @NgModule({
   declarations: [
@@ -22,15 +29,22 @@ import {ListHistoricoComponent} from './components/historico/list/list-historico
     NovoComponent,
     VisualizarComponent,
     AlterarComponent,
-    ListHistoricoComponent
+    ListHistoricoComponent,
+    ErrorComponent,
+    HeaderNavbarComponent
   ],
     imports: [
-
+        CommonModule,
+        BsDropdownModule.forRoot(),
+        TooltipModule.forRoot(),
+        ModalModule.forRoot(),
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
         NgxMaskModule.forRoot(),
+        ModalDialogModule.forRoot()
+
 
 
     ],

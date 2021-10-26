@@ -2,4 +2,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-top: 10%;
+}
+
+.emptyState{
+  width: 25%;
+  height: 10%;
 }
