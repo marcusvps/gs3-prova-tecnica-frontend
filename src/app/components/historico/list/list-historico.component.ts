@@ -24,7 +24,7 @@ export class ListHistoricoComponent implements OnInit {
 
   buscarHistoricos(){
     let usuario = this.localStorage.get("usuario");
-    this.httpClient.get("http://localhost:8080/api/historico/" + usuario.id)
+    this.httpClient.get("http://localhost:8080/api/historico/" + usuario.id,)
       .subscribe((data) => {
           this.historicos = data;
         }

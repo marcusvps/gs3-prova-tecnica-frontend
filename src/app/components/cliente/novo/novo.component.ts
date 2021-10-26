@@ -43,11 +43,10 @@ export class NovoComponent implements OnInit {
     this.cliente.emails.push(novoEmail)
   }
   buscarEnderecoPeloCEP() {
+    this.erros = [];
     let usuario = this.localStorage.get("usuario");
     if(this.cliente.endereco.cep){
-    this.httpClient.get("http://localhost:8080/api/endereco/" + this.cliente.endereco.cep,{params:{
-        idUsuarioLogado: usuario.id
-      }})
+    this.httpClient.get("http://localhost:8080/api/endereco/" + this.cliente.endereco.cep,{headers: {'Authorization': usuario.id.toString()}})
       .subscribe( (data) =>{
         this.cliente.endereco.cidade = data['cidade'];
         this.cliente.endereco.uf = data['uf'];
@@ -70,8 +69,8 @@ export class NovoComponent implements OnInit {
 
   salvar(){
     let usuario = this.localStorage.get("usuario");
-
-    this.httpClient.post("http://localhost:8080/api/cliente/salvar",this.cliente)
+    this.erros = [];
+    this.httpClient.post("http://localhost:8080/api/cliente/salvar",this.cliente,{headers: {'Authorization': usuario.id.toString()}})
       .subscribe(() =>{
         this.router.navigateByUrl('/list');
       },

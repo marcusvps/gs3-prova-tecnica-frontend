@@ -11,6 +11,8 @@ import {ModalDialogService, SimpleModalComponent} from 'ngx-modal-dialog';
 })
 export class ListComponent implements OnInit {
   clientes: any = [];
+  erros:any = [];
+
   cpfMask = '000.000.000-00';
 
   constructor(private httpClient: HttpClient,
@@ -25,18 +27,14 @@ export class ListComponent implements OnInit {
   }
 
   getClientes(): void {
-
     let usuario = this.localStorage.get('usuario');
-    this.httpClient.get('http://localhost:8080/api/cliente', {
-      params: {
-        idUsuarioLogado: usuario.id
-      }
-    })
+    this.httpClient.get('http://localhost:8080/api/cliente', {headers: {'Authorization': usuario.id.toString()}})
       .subscribe(data => {
           this.clientes = data;
         },
         error => {
-          alert('Erro: ' + error.error.erro);
+          this.erros = [];
+          this.erros.push(error.error.erro);
         });
   }
 
@@ -66,7 +64,8 @@ export class ListComponent implements OnInit {
   }
 
   removerCliente(cliente): void {
-    this.httpClient.delete('http://localhost:8080/api/cliente/remover/' + cliente.id)
+    let usuario = this.localStorage.get("usuario");
+    this.httpClient.delete('http://localhost:8080/api/cliente/remover/' + cliente.id,{headers: {'Authorization': usuario.id.toString()}})
       .subscribe(() => {
           window.location.reload();
         }

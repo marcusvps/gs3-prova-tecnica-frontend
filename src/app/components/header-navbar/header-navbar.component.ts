@@ -28,5 +28,10 @@ export class HeaderNavbarComponent implements OnInit {
     this.router.navigateByUrl("/historico");
   }
 
+  deslogar(){
+    this.localStorage.remove("usuario");
+    this.router.navigateByUrl("/login");
+  }
+
 
 }

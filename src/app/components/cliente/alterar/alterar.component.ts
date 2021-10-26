@@ -46,9 +46,7 @@ export class AlterarComponent implements OnInit {
   buscarEnderecoPeloCEP() {
     let usuario = this.localStorage.get("usuario");
     if(this.clienteAAlterar.endereco.cep){
-      this.httpClient.get("http://localhost:8080/api/endereco/" + this.clienteAAlterar.endereco.cep,{params:{
-          idUsuarioLogado: usuario.id
-        }})
+      this.httpClient.get("http://localhost:8080/api/endereco/" + this.clienteAAlterar.endereco.cep,{headers: {'Authorization': usuario.id.toString()}})
         .subscribe( (data) =>{
           this.clienteAAlterar.endereco.cidade = data['cidade'];
           this.clienteAAlterar.endereco.uf = data['uf'];
@@ -70,7 +68,8 @@ export class AlterarComponent implements OnInit {
   }
 
   salvar(){
-    this.httpClient.put("http://localhost:8080/api/cliente/alterar",this.clienteAAlterar)
+    let usuario = this.localStorage.get("usuario");
+    this.httpClient.put("http://localhost:8080/api/cliente/alterar",this.clienteAAlterar,{headers: {'Authorization': usuario.id.toString()}})
       .subscribe(() =>{
           this.router.navigateByUrl('/list');
         },
