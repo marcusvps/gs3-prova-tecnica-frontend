@@ -102,18 +102,6 @@
 
     <div *ngFor="let telefone of cliente.telefones; index as i">
       <div class="mb-3">
-        <label for="numeroTelefone{{i}}">Número*</label>
-        <input type="text"
-               id="numeroTelefone{{i}}"
-               name="numeroTelefone{{i}}"
-               class="form-control"
-               [(ngModel)]="telefone.numero"
-               [mask]="recuperarMascaraTelefone(telefone)"
-               required>
-
-      </div>
-
-      <div class="mb-3">
         <label for="tipoTelefone{{i}}">Tipo Telefone*</label>
         <select id="tipoTelefone{{i}}" name="tipoTelefone{{i}}"  class="form-select" size="3" aria-label="size 3 select example"
                 [(ngModel)]="telefone.tipoTelefone"
@@ -125,6 +113,16 @@
         </select>
       </div>
 
+      <div class="mb-3">
+        <label for="numeroTelefone{{i}}">Número*</label>
+        <input type="text"
+               id="numeroTelefone{{i}}"
+               name="numeroTelefone{{i}}"
+               class="form-control"
+               [(ngModel)]="telefone.numero"
+               [mask]="recuperarMascaraTelefone(telefone)"
+               required>
+      </div>
     </div>
 
     <h4>Emails
