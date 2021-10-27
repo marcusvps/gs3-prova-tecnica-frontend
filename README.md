@@ -2,7 +2,7 @@
 
 Na pasta com o código fonte execute `npm install` para gerar a pasta node_modules com as dependências.
 
-Para dar start no projeto, execute `npm start --open`, o endereço padrão é `http:localhost/4200`
+Para dar start no projeto, execute `npm start --open`, o endereço padrão é `http://localhost:4200`
 
 Tela inicial da aplicação: 
 
